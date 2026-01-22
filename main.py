@@ -9,4 +9,10 @@ from pathlib import Path
 
 req=parse(input("request> "), enforce_scope(Policy(base=Path.home()), input("path> ")))
 
-print(summarize(run(validate(make_plan(req, TOOLS), TOOLS), TOOLS)))
+res = run(validate(make_plan(req, TOOLS), TOOLS), TOOLS); 
+print(summarize(res))
+
+
+if input("apply changes? (y/N) ").lower()=="y":
+    req = type(req)(req.text, req.path, False); 
+    print(summarize(run(validate(make_plan(req, TOOLS), TOOLS), TOOLS)))
